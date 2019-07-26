@@ -11,10 +11,10 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long authorid;
 
-    @Column
+    @Column(name = "lname")
     private String lastname;
 
-    @Column
+    @Column(name = "fname")
     private String firstname;
 
     public Author(String lastname, String firstname) {

@@ -11,10 +11,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookid;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String booktitle;
 
-    @Column(nullable = false)
+    @Column(name = "ISBN", nullable = false)
     private String isbn;
 
     @Column
