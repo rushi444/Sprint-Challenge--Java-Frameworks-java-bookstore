@@ -16,7 +16,7 @@ public class AuthorController {
 
     @Autowired
     AuthorService authorService;
-    
+
     @GetMapping(value = "/authors", produces = {"application/json"})
     public ResponseEntity<?> listAllAuthors(HttpServletRequest request){
         List<Author> all = authorService.findAll();

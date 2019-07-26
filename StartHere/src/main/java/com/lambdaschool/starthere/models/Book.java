@@ -1,10 +1,14 @@
 package com.lambdaschool.starthere.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
 
     @Id
@@ -18,12 +22,27 @@ public class Book {
     private String isbn;
 
     @Column
-    private int copy;
+    private String copy;
 
-    public Book(String booktitle, String isbn, int copy) {
+    @ManyToMany
+    @JsonIgnoreProperties(value = "bookList")
+    @JoinTable(name = "wrote", joinColumns = {@JoinColumn(name = "bookid")}, inverseJoinColumns = {@JoinColumn(name = "authorid")})
+    List<Author> authorList = new ArrayList<>();
+
+    public Book() {
+    }
+
+//    public Book(String booktitle, String isbn, String copy) {
+//        this.booktitle = booktitle;
+//        this.isbn = isbn;
+//        this.copy = copy;
+//    }
+
+    public Book(String booktitle, String isbn, String copy, List<Author> authorList) {
         this.booktitle = booktitle;
         this.isbn = isbn;
         this.copy = copy;
+        this.authorList = authorList;
     }
 
     public long getBookid() {
@@ -50,11 +69,19 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getCopy() {
+    public String getCopy() {
         return copy;
     }
 
-    public void setCopy(int copy) {
+    public void setCopy(String copy) {
         this.copy = copy;
+    }
+
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
     }
 }

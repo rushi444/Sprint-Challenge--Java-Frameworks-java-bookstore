@@ -1,7 +1,11 @@
 package com.lambdaschool.starthere.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "author")
@@ -17,9 +21,14 @@ public class Author {
     @Column(name = "fname")
     private String firstname;
 
-    public Author(String lastname, String firstname) {
+    @ManyToMany(mappedBy = "authorList")
+    @JsonIgnoreProperties(value = "authorList")
+    List<Book> bookList = new ArrayList<>();
+
+    public Author(String lastname, String firstname, List<Book> bookList) {
         this.lastname = lastname;
         this.firstname = firstname;
+        this.bookList = bookList;
     }
 
     public long getAuthorid() {
@@ -44,5 +53,13 @@ public class Author {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 }
