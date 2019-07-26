@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "book")
-public class Book {
+public class Book extends Auditable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +17,7 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String booktitle;
 
-    @Column(name = "ISBN", nullable = false)
+    @Column(name = "ISBN")
     private String isbn;
 
     @Column
@@ -27,16 +26,16 @@ public class Book {
     @ManyToMany
     @JsonIgnoreProperties(value = "bookList")
     @JoinTable(name = "wrote", joinColumns = {@JoinColumn(name = "bookid")}, inverseJoinColumns = {@JoinColumn(name = "authorid")})
-    List<Author> authorList = new ArrayList<>();
+    private List<Author> authorList = new ArrayList<>();
 
     public Book() {
     }
 
-//    public Book(String booktitle, String isbn, String copy) {
-//        this.booktitle = booktitle;
-//        this.isbn = isbn;
-//        this.copy = copy;
-//    }
+    public Book(String booktitle, String isbn, String copy) {
+        this.booktitle = booktitle;
+        this.isbn = isbn;
+        this.copy = copy;
+    }
 
     public Book(String booktitle, String isbn, String copy, List<Author> authorList) {
         this.booktitle = booktitle;

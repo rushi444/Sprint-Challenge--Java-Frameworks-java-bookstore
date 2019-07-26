@@ -38,6 +38,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                 .antMatchers("/users/**", "/oauth/revoke-token").authenticated()
                 .antMatchers("/roles/**").hasAnyRole("ADMIN", "USER", "DATA")
                 .antMatchers("/actuator/**").hasAnyRole("ADMIN")
+                .antMatchers("/books", "/authors").authenticated()
+                .antMatchers("/data/**").hasAnyRole("ADMIN")
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
         // http.requiresChannel().anyRequest().requiresSecure();

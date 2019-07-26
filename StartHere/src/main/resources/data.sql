@@ -17,11 +17,11 @@ INSERT INTO book (bookid, title, ISBN, copy) VALUES (3, 'The Da Vinci Code', '97
 INSERT INTO book (bookid, title, ISBN, copy) VALUES (4, 'Essentials of Finance', '1314241651234', NULL);
 INSERT INTO book (bookid, title, ISBN, copy) VALUES (5, 'Calling Texas Home', '1885171382134', 2000);
 
--- INSERT INTO wrote (bookid, authorid) VALUES (1, 6);
--- INSERT INTO wrote (bookid, authorid) VALUES (2, 2);
--- INSERT INTO wrote (bookid, authorid) VALUES (3, 2);
--- INSERT INTO wrote (bookid, authorid) VALUES (4, 5);
--- INSERT INTO wrote (bookid, authorid) VALUES (4, 3);
--- INSERT INTO wrote (bookid, authorid) VALUES (5, 4);
+INSERT INTO wrote (bookid, authorid) VALUES (1, 6);
+INSERT INTO wrote (bookid, authorid) VALUES (2, 2);
+INSERT INTO wrote (bookid, authorid) VALUES (3, 2);
+INSERT INTO wrote (bookid, authorid) VALUES (4, 5);
+INSERT INTO wrote (bookid, authorid) VALUES (4, 3);
+INSERT INTO wrote (bookid, authorid) VALUES (5, 4);
 
 alter sequence hibernate_sequence restart with 25;

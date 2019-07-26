@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "author")
-public class Author {
+public class Author extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +22,15 @@ public class Author {
 
     @ManyToMany(mappedBy = "authorList")
     @JsonIgnoreProperties(value = "authorList")
-    List<Book> bookList = new ArrayList<>();
+    private List<Book> bookList = new ArrayList<>();
+
+    public Author() {
+    }
+
+    public Author(String lastname, String firstname) {
+        this.lastname = lastname;
+        this.firstname = firstname;
+    }
 
     public Author(String lastname, String firstname, List<Book> bookList) {
         this.lastname = lastname;
