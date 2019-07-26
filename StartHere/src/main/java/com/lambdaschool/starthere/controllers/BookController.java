@@ -1,14 +1,14 @@
 package com.lambdaschool.starthere.controllers;
 
-import com.lambdaschool.starthere.models.Author;
 import com.lambdaschool.starthere.models.Book;
 import com.lambdaschool.starthere.models.ErrorDetail;
 import com.lambdaschool.starthere.services.BookService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +33,9 @@ public class BookController {
                             "Multiple sort criteria are supported.")})
 
     @GetMapping(value = "/books", produces = {"application/json"})
-    public ResponseEntity<?> listAllBooks(HttpServletRequest request){
-        List<Book> allBooks = bookService.findAll();
+    public ResponseEntity<?> listAllBooks(HttpServletRequest request, @PageableDefault(page = 0, size = 5) Pageable pageable){
+
+        List<Book> allBooks = bookService.findAll(pageable);
         return new ResponseEntity<>(allBooks, HttpStatus.OK);
     }
     @ApiOperation(value = "Update a current Book", response = Book.class)
@@ -59,6 +60,6 @@ public class BookController {
     @PostMapping(value = "/data/books/{bookid}/authors/{authorid}", consumes = {"application/json"})
     public ResponseEntity<?>bookWithAuthor(@PathVariable long bookid, @PathVariable long authorid){
         bookService.assignAuthor(bookid, authorid);
-        return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.findAll(Pageable.unpaged()), HttpStatus.OK);
     }
 }
